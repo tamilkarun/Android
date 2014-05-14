@@ -8,24 +8,52 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.calc.MainActivity$PlaceholderFragment" >
+    tools:context="com.example.calc.MainActivity$PlaceholderFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:weightSum="100">
+        <TextView 
+            android:id="@+id/Value1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Value 1: "
+            android:gravity="left"
+            android:textSize="15dp"
+            android:layout_weight="80"
+            />	
         <EditText
             android:id="@+id/Num1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearLayout1"
             android:layout_centerHorizontal="true"
-            android:inputType="number" >
-
+            android:inputType="number"
+            android:layout_weight="20" >
         </EditText>
-
+		</LinearLayout>
+		
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:weightSum="100">
+        <TextView 
+            android:id="@+id/Value2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Value 2: "
+            android:gravity="left"
+            android:textSize="15dp"
+            android:layout_weight="80"
+            />
         <EditText
             android:id="@+id/Num2"
             android:layout_width="fill_parent"
@@ -33,8 +61,10 @@
             android:layout_alignLeft="@+id/Num1"
             android:layout_below="@+id/Num1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:layout_weight="20" />
 		</LinearLayout>
+		
 		<LinearLayout 
 		    android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
@@ -59,24 +89,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Div" />
-        <!-- <EditText -->
-        <!-- android:id="@+id/Result" -->
-        <!-- android:layout_width="wrap_content" -->
-        <!-- android:layout_height="wrap_content" -->
-        <!-- android:layout_alignLeft="@+id/Num2" -->
-        <!-- android:layout_below="@+id/Add" -->
-        <!-- android:ems="10" /> -->
+		</LinearLayout> 
+		
 
         
-    </LinearLayout>
-
+    <LinearLayout
+	    	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal"
+        	android:weightSum="100"
+        	>
+        <Button
+            android:id="@+id/AnswerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Answer" />
+        <Button
+            android:id="@+id/ClearButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:text="Clear" />	
+		    
+        </LinearLayout>	
 		
-		
-
-<TextView
+		<TextView
             android:id="@+id/AddResult"
+            android:layout_marginTop="30dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Answer is "
-            android:gravity="center" />
-</LinearLayout>
+            android:text="Check Menu Options also for Answer: "
+            android:gravity="left"
+            android:textSize="15dp" />
+
+	</LinearLayout>
+</LinearLayout>	
