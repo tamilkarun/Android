@@ -16,7 +16,7 @@ import android.widget.*;
 
 public class MainActivity extends Activity {
 
-	 Button ADD,SUB,MUL,DIV;
+	 Button ADD,SUB,MUL,DIV,ANSWER,CLR;
 	 EditText etxt1;
 	 EditText etxt2;
 	 TextView Result;
@@ -39,9 +39,12 @@ public class MainActivity extends Activity {
         SUB = (Button)findViewById(R.id.Sub);
         MUL = (Button)findViewById(R.id.Mul);
         DIV = (Button)findViewById(R.id.Div);
+        ANSWER = (Button)findViewById(R.id.AnswerButton);
+        CLR = (Button)findViewById(R.id.ClearButton);
         etxt1 = (EditText)findViewById(R.id.Num1);
         etxt2 = (EditText)findViewById(R.id.Num2);
         Result = (TextView)findViewById(R.id.AddResult);
+        
         //final Double NumValue1 = Double.parseDouble(etxt1.getText().toString());
         //final Double NumValue2 = Double.parseDouble(etxt2.getText().toString());
         ADD.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +90,31 @@ public class MainActivity extends Activity {
 				SUB.setPressed(false);
 				MUL.setPressed(false);
 				DIV.setPressed(true);
+			}
+		});
+        ANSWER.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				try{
+	        		Class ourClass = Class.forName("com.example.calc.Answer");
+	        		Intent ourIntent = new Intent(MainActivity.this,ourClass);
+	        		ourIntent.putExtra("CalValue", Double.toString(z));
+	        		startActivity(ourIntent);
+	        		}catch(ClassNotFoundException e){
+	        			e.printStackTrace();
+	        		}
+			}
+		});
+        CLR.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				etxt1.setText("");
+	        	etxt2.setText("");
+	        	Result.setText("Check Menu Option also for Answer: ");
 			}
 		});
     }
@@ -144,19 +172,11 @@ public class MainActivity extends Activity {
         if(id == R.id.Clear){
         	etxt1.setText("");
         	etxt2.setText("");
-        	Result.setText("");
+        	Result.setText("Check Menu Options also for Answer: ");
         }
         if(id == R.id.Answer){
         	
-        	try{
-        		Class ourClass = Class.forName("com.example.calc.Answer");
-        		Intent ourIntent = new Intent(MainActivity.this,ourClass);
-        		ourIntent.putExtra("CalValue", Double.toString(z));
-        		startActivity(ourIntent);
-        		}catch(ClassNotFoundException e){
-        			e.printStackTrace();
-        		}
-        	//Result.setText(Double.toString(z));
+        	Result.setText("Answer is " + Double.toString(z));
         }
         return super.onOptionsItemSelected(item);
     }

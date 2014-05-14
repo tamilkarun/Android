@@ -1,0 +1,199 @@
+package com.example.calc;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.os.Build;
+import android.view.*;
+import android.widget.*;
+
+public class MainActivity extends Activity {
+
+	 Button ADD,SUB,MUL,DIV,ANSWER,CLR;
+	 EditText etxt1;
+	 EditText etxt2;
+	 TextView Result;
+	 
+	 double x=0;
+	 double y=0;
+	 double z=0;
+	 
+	 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_main);
+        initControls();
+    }
+    
+    public void initControls()
+    	{
+        ADD = (Button)findViewById(R.id.Add);
+        SUB = (Button)findViewById(R.id.Sub);
+        MUL = (Button)findViewById(R.id.Mul);
+        DIV = (Button)findViewById(R.id.Div);
+        ANSWER = (Button)findViewById(R.id.AnswerButton);
+        CLR = (Button)findViewById(R.id.ClearButton);
+        etxt1 = (EditText)findViewById(R.id.Num1);
+        etxt2 = (EditText)findViewById(R.id.Num2);
+        Result = (TextView)findViewById(R.id.AddResult);
+        
+        //final Double NumValue1 = Double.parseDouble(etxt1.getText().toString());
+        //final Double NumValue2 = Double.parseDouble(etxt2.getText().toString());
+        ADD.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					Addition();
+					ADD.setPressed(true);
+					SUB.setPressed(false);
+					MUL.setPressed(false);
+					DIV.setPressed(false);
+			}
+		});
+        
+        SUB.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Substraction();
+				ADD.setPressed(false);
+				SUB.setPressed(true);
+				MUL.setPressed(false);
+				DIV.setPressed(false);
+			}
+		});
+        MUL.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Multiply();
+				ADD.setPressed(false);
+				SUB.setPressed(false);
+				MUL.setPressed(true);
+				DIV.setPressed(false);
+			}
+		});
+        DIV.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Divide();
+				ADD.setPressed(false);
+				SUB.setPressed(false);
+				MUL.setPressed(false);
+				DIV.setPressed(true);
+			}
+		});
+        ANSWER.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				try{
+	        		Class ourClass = Class.forName("com.example.calc.Answer");
+	        		Intent ourIntent = new Intent(MainActivity.this,ourClass);
+	        		ourIntent.putExtra("CalValue", Double.toString(z));
+	        		startActivity(ourIntent);
+	        		}catch(ClassNotFoundException e){
+	        			e.printStackTrace();
+	        		}
+			}
+		});
+        CLR.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				etxt1.setText("");
+	        	etxt2.setText("");
+	        	Result.setText("Check Menu also for Answer: ");
+			}
+		});
+    }
+    private double Addition()
+    {
+    
+    	x = Double.parseDouble(etxt1.getText().toString());
+    	y = Double.parseDouble(etxt2.getText().toString());
+    	z = x + y;
+		return z;
+    	//Result.setText(Double.toString(z));
+	   	
+    }
+    private double Substraction(){
+    	x = Double.parseDouble(etxt1.getText().toString());
+    	y = Double.parseDouble(etxt2.getText().toString());
+    	z = x - y;
+    	return z;
+    	//Result.setText(Double.toString(z));
+    }
+    private double Multiply(){
+    	x = Double.parseDouble(etxt1.getText().toString());
+    	y = Double.parseDouble(etxt2.getText().toString());
+    	z = x * y;
+    	return z;
+    	//Result.setText(Double.toString(z));
+    }
+
+    private double Divide(){
+    	x = Double.parseDouble(etxt1.getText().toString());
+    	y = Double.parseDouble(etxt2.getText().toString());
+    	z = x / y;
+    	return z;
+    	//Result.setText(Double.toString(z));
+    }
+    
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if(id == R.id.Clear){
+        	etxt1.setText("");
+        	etxt2.setText("");
+        	Result.setText("");
+        }
+        if(id == R.id.Answer){
+        	
+        	Result.setText("Answer is " + Double.toString(z));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
+    }
+}
